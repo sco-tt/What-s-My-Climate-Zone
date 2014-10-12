@@ -50,7 +50,6 @@ function changeMapLocation(locations) {
 	        position: locations[0].location
         });
 		bestLocation = locations[0].text + " " + locations[0].location.toString();
-		console.log(bestLocation);
 		map.panTo(locations[0].location);
         map.setZoom(8);
 	} 
