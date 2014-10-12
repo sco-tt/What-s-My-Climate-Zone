@@ -147,6 +147,7 @@ function describeClimatezone (climateZone) {
 // converting the address's string to a google.maps.LatLng object
 function addressToLocation(address, callback) {
 	//remove old results
+	document.getElementById('locationName').innerHTML="";
 	document.getElementById('zoneDescription').innerHTML="";
 	document.getElementById('zoneOutput').innerHTML="";
 	document.getElementById("debug").innerHTML="";
