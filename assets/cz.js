@@ -192,21 +192,21 @@ function addressToLocation(address, callback) {
 
 			//start Layers
 
-var layers = [];
-layers[0] = new google.maps.KmlLayer('http://scottpinkelman.com/What-s-My-Climate-Zone/assets/Koeppen-Geiger-GE.kmz',
-{preserveViewport: true});
 
+layer = new google.maps.KmlLayer('http://scottpinkelman.com/What-s-My-Climate-Zone/assets/Koeppen-Geiger-GE.kmz',
+{preserveViewport: true});
+layer.setMap(map)
 
 
 //toggle layers
 function toggleLayer(i) {
- if(layers[i].getMap()==null) {
- layers[i].setMap(map);
+ if(layer.getMap()==null) {
+ layer.setMap(map);
  Apollo.addClass(document.getElementById("layer-toggle"), 'pure-button-active');				
 
   }
   else {
-     layers[i].setMap(null);
+     layer.setMap(null);
      Apollo.removeClass(document.getElementById("layer-toggle"), 'pure-button-active');				
 
   }
