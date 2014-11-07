@@ -86,7 +86,7 @@ function rounder (x) {
 
 //YQL query
 function determineClimateZone(lat, lng) {
-    var query = 'select zone from csv where url="http://scottpinkelman.com/What-s-My-Climate-Zone-v1/assets/Koeppen-Geiger-ASCII-trimmed.csv" and columns="lat,lng,zone" and lat="'+ lat + '" and lng="' + lng + '"';
+    var query = 'select zone from csv where url="https://sco-tt.github.io/What-s-My-Climate-Zone/assets/Koeppen-Geiger-ASCII-trimmed.csv" and columns="lat,lng,zone" and lat="'+ lat + '" and lng="' + lng + '"';
     YUI().use("yql", function (Y) {
            Y.YQL(query, function(results) {
 	            climateZone = results.query.results.row.zone;
