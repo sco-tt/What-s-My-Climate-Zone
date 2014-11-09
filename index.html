@@ -7,7 +7,7 @@
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.4.2/pure-min.css">
-	    <link rel="stylesheet" type="text/css" href="css/style.css">
+	  <link rel="stylesheet" type="text/css" href="css/style.css"> 
 		<title>What's My Climate Zone?</title>
 		<script language="JavaScript" type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&language=en"></script>
 		
@@ -16,33 +16,32 @@
 <!--[if lte IE 9]>
 <p class="ie">Sorry, this site doesn't work return results on Internet Explorer 9 or below. You can still play with the map. Please use a different browser to see your climate zone. Technical details <a href="https://stackoverflow.com/questions/6514457/getjson-or-ajax-requests-not-working-with-ie9">here</a>. <p>
 <![endif]-->
-					<div class="pure-g-r">
-						<div class="pure-u-2-5">
-						<div class="pad">
-				<h1 class="logo"><span class="w">what's</span> <span class="mc">my climate</span><span class="z">zone???</h1>
 
-						<input type="text" id="searchtext" placeholder="Type your favorite place & hit enter" />
-						<button type="button" class="pure-button pure-button-primary" id="search" value="search" />Search</button>
-						<button type="button" id="layer-toggle" class="pure-button layer-toggle" onclick="toggleLayer(0)">Toggle Climate Zones Overlay</button>
+		<h1 class="logo">
+			<span class="w">what's</span> 
+			<span class="mc">my climate</span>
+			<span class="z">zone???</span>
+		</h1>
+		
+		<div class="input">
+			<input type="text" id="searchtext" placeholder="Type your favorite place & hit enter" />
+			<button type="button" class="pure-button pure-button-primary" id="search" value="search" />Search</button>
+			<button type="button" id="layer-toggle" class="pure-button layer-toggle" onclick="toggleLayer(0)">Toggle Climate Zones Overlay</button>
+		</div>
 
-				<div class="scrollto"></div>
-							<div class="results-container">
-								<div id="results" class="results">
-								<div id="locationName"></div>
-								<h2 id="zoneOutput"></h2>
-								<div id="zoneDescription"></div>
-								</div>
-							</div>
-							</div>
-						</div> <!-- end pure-u-2-5" -->
-						<div class="pure-u-3-5">
-							
-							<div id="map-holder"></div>
+		<div class="scrollto"></div>
+		<div class="results-container">
+			<div id="results" class="results">
+			<div id="locationName"></div>
+			<h2 id="zoneOutput"></h2>
+			<div id="zoneDescription"></div>
+			</div>
+		</div>
 
-							<!--<div class="checkbox">View Temperature Data <input type="checkbox" id="layer1" onclick="toggleLayer(1)"></div>-->
-							<div id="debug"><h2>Debug</h2></div>
-						</div> <!-- end pure-u-3-5 -->
-				</div> <!-- end pure-g-r -->
+		<div id="map-holder"></div>
+
+			<!--<div class="checkbox">View Temperature Data <input type="checkbox" id="layer1" onclick="toggleLayer(1)"></div>-->
+			<div id="debug"><h2>Debug</h2></div>
 				
 		<script src="assets/apollo.js"></script>
 		<script src="assets/cz.js"></script>

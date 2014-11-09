@@ -20,7 +20,7 @@ window.onload = function () {
     );
 				
     // centering the map
-    map.setCenter(new google.maps.LatLng(10.2, 22.1));
+    map.setCenter(new google.maps.LatLng(20.2, 0.1));
 
     // adding events
     document.getElementById("search").onclick = function () {
@@ -192,19 +192,21 @@ function addressToLocation(address, callback) {
 
 			//start Layers
 
-var layers = [];
-layers[0] = new google.maps.KmlLayer('http://scottpinkelman.com/What-s-My-Climate-Zone/assets/Koeppen-Geiger-GE.kmz',
+
+var layer = new google.maps.KmlLayer('https://sco-tt.github.io/What-s-My-Climate-Zone/Koeppen-Geiger-GE.kmz',
 {preserveViewport: true});
 
+
 //toggle layers
-function toggleLayer(i) {
- if(layers[i].getMap()==null) {
- layers[i].setMap(map);
- Apollo.addClass(document.getElementById("layer-toggle"), 'pure-button-active');				
+function toggleLayer() {
+ if(layer.getMap()==null) {
+ layer.setMap(map);
+ google.maps.event.trigger(map, 'resize');
+ Apollo.addClass(document.getElementById("layer-toggle"), 'pure-button-active');	
 
   }
   else {
-     layers[i].setMap(null);
+     layer.setMap(null);
      Apollo.removeClass(document.getElementById("layer-toggle"), 'pure-button-active');				
 
   }
