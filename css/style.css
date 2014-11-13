@@ -14,19 +14,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	font-weight: 800;
 	font-style: italic;
 }
-/*#map-holder {
-	display: block;
-	width: 100%;
-	height: 400px;
-}*/
+
 
 #map-holder{
-    position: absolute;
-    top: 0px;
-    left: 0;
-    bottom: 0px;
-    right: 0;
+    position: relative;
+	width: 100%;
+	height: 100%;
 }
+
 #debug {
 	position: relative;
 	font-size: 11px;
@@ -36,71 +31,49 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	font-size: 2rem;
 	margin: .2em;
 }
-.main {
-	max-width: 1400px;
-}
-.results-container {
-	z-index: 999;
-	height: 7em;
-	color: black;
-}
+
 .results {
-	top: .5em;
-	left: 2em;
+	clear: both;
+	width: 100%;
+	background: yellow;
+}
+
+#zoneOutput, #zoneDescription {
+	display: inline-block;
 }
 
 /*Header*/
 
 
 
-.w, .mc, .z {
-	display: block;
-	line-height: .9em;
-}
-.w {
-	font-size: 48px;
-}
-.mc {
-	font-size: 32px;
-}
-.z {
-	font-size: 24px;
+.pure-menu .pure-menu-heading {
+	color: white;
+	font-size: 1.3rem;
+	height: 2.5em;
 }
 
-p.ie {
-	width: 100%;
-	background: rgb(250, 210, 50);
-	margin: 0;
-	padding: 1em;
-}
-
-.input *, h1.logo {
-	position: fixed;
-	z-index: 1;
-}
-.input * {
-	margin-top: 1em;
-}
-
-h1.logo {
-	left: 2%;
-}
-
-input#searchtext, button.pure-button {
-	width: 5em;
-	text-align: center;
-}
 
 input#searchtext {
-	left: 40%;
-}
-button.pure-button {
-	left: 50%;
+height: 2em;
+width: 16em;
 }
 
-button#layer-toggle {
-	left: 60%;
+
+
+
+
+.pure-menu.pure-menu-open {
+background: rgb(41,154,11); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(41,154,11,1) 0%, rgba(41,154,11,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(41,154,11,1)), color-stop(100%,rgba(41,154,11,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(41,154,11,1) 0%,rgba(41,154,11,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(41,154,11,1) 0%,rgba(41,154,11,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, rgba(41,154,11,1) 0%,rgba(41,154,11,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom, rgba(41,154,11,1) 0%,rgba(41,154,11,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#299a0b', endColorstr='#299a0b',GradientType=0 ); /* IE6-9 */
 }
+
+
 
 .active .results {
 width: 25px;
@@ -123,7 +96,20 @@ https://stackoverflow.com/questions/8511436/zoom-control-and-streetview-not-show
 ****/
 .gmnoprint img { max-width: none; }
 
-.layer-toggle {
+.main {
+	position: relative;
+}
+	.sidebar {
+position: fixed;
+/* top: 1em; */
+/* left: 1em; */
+z-index: 2;
+height: 100%;
+overflow: hidden;
+background: rgba(0, 0, 0, .5);
+width: 300px;
+vertical-align: middle;
+padding: 2em;
 
 
 }
@@ -132,11 +118,3 @@ img[src^="http://sco-tt.github.io/"]{
 	opacity:.5
 }
 
-@media only screen and (min-width: 768px) {
-	.pure-g-r, 
-	.pure-u-2-5,
-	.pure-u-3-5, 
-	 {
-		height: 100%;
-	}
-}
