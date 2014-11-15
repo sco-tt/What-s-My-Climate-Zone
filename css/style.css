@@ -59,6 +59,10 @@ button#layer-toggle, button#search {
 	height: 2.5em;
 }
 
+.altIds li {
+	list-style-type: none;
+}
+
 
 
 

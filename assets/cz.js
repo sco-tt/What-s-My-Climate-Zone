@@ -48,17 +48,41 @@ window.onload = function () {
 
 /*Zooming to location and passing reults to climate zone query*/
 
-function changeMapLocation(locations) {
-	console.log(locations);
-	if(locations && locations.length) {
+function changeMapLocation(locations, isAlt) {
+	
+// isAlt determine if this is inputed through the search field or clicked on in the list of alternates
+	
+	if(locations && locations.length && isAlt == false) {
 		log("Num of results: " + locations.length);
 		var numOfLocations = locations.length;
-		for(var i=0; i<numOfLocations; i++) {	
-			var altLocation = locations[i].text + " " + locations[i].location.toString();
-			//log("- " + locations[i].text + " / <strong>" + locations[i].location.toString() + "</strong>");
-			log("<a href='#' onclick='changeMapLocation(" + altLocation + ")'>" + locations[i].text + "</a>")
+		var listofAlts = document.getElementById("altIds");
+		listofAlts.innerHTML = "";
+		
+	//For loop to set list of alternate locations. location[0] not included -- this is the intial point
+		
+		for(var i=1; i<numOfLocations; i++) {	
+			var altLocation = locations[i].location;
+			listofAlts.innerHTML += "<li id = alt" + i + ">" + locations[i].text + "</li>";
 			console.log("Alt Location # " + i + " is " + altLocation);
-		}
+		} 
+		
+	//Event LIstening in a separate loops
+	
+		for(var i=1; i<numOfLocations; i++) {	
+			(function (i) {
+			    document.getElementById('alt' + i).onclick = function () {
+			        if (window.console.firebug !== undefined) {
+			            console.log(locations[i]);
+			        }
+			        else {
+			            changeMapLocation(locations[i], true);
+			        }
+			    };
+			})(i);
+		} //End 2nd for loop
+
+		//Set up a marker and pan map to our best location
+		
 		var marker = new google.maps.Marker({
 	        map: map,
 	        position: locations[0].location
@@ -67,9 +91,25 @@ function changeMapLocation(locations) {
 		map.panTo(locations[0].location);
         map.setZoom(8);
 	} 
+	
+	else if (isAlt == true) {
+		console.log(locations);
+		var marker = new google.maps.Marker({
+	        map: map,
+	        position: locations.location
+        });
+		map.panTo(locations);
+        map.setZoom(8);
+
+	}
+
+
 	else {
 		describeClimatezone (null);
 	}
+
+
+
 	//Send lat and lng values to rounder in an array  
 	var latAndLng = [locations[0].location.k, locations[0].location.B];
 	rounder(latAndLng);  
@@ -79,6 +119,9 @@ function changeMapLocation(locations) {
 
 }
 
+	function altAlert (event) {
+		alert("hi");
+	}
 
 
 //Everything has to be rounded to nearest .25 or .75 to match the data
@@ -177,7 +220,7 @@ function addressToLocation(address, callback) {
 			address: address
 		}, 
 		function(results, status) {
-			
+			var isAlt = false;
 			var resultLocations = [];
 			
 			if(status == google.maps.GeocoderStatus.OK) {
@@ -201,7 +244,7 @@ function addressToLocation(address, callback) {
 			}
 			
 			if(resultLocations.length > 0) {
-				callback(resultLocations);
+				callback(resultLocations, isAlt);
 			} else {
 				callback(null);
 			}
