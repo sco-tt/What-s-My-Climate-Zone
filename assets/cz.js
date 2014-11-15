@@ -4,6 +4,8 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 var map = null;
 var bestLocation;
 
+/*Initializing the map and input elements*/
+
 window.onload = function () {
     // initialize the map
     var mapHolder = document.getElementById("map-holder");
@@ -14,8 +16,13 @@ window.onload = function () {
             mapTypeId: google.maps.MapTypeId.ROADMAP, 
             zoomControl: true,
 		    zoomControlOptions: {
-			    style: google.maps.ZoomControlStyle.SMALL
-		    }
+			    style: google.maps.ZoomControlStyle.SMALL,
+	            position: google.maps.ControlPosition.RIGHT_TOP
+		    },
+			panControl: true,
+			panControlOptions: {
+				position: google.maps.ControlPosition.TOP_RIGHT
+		    },
         }
     );
 				
@@ -38,12 +45,19 @@ window.onload = function () {
         }
     };
 }
+
+/*Zooming to location and passing reults to climate zone query*/
+
 function changeMapLocation(locations) {
+	console.log(locations);
 	if(locations && locations.length) {
 		log("Num of results: " + locations.length);
 		var numOfLocations = locations.length;
 		for(var i=0; i<numOfLocations; i++) {	
-			log("- " + locations[i].text + " / <strong>" + locations[i].location.toString() + "</strong>");
+			var altLocation = locations[i].text + " " + locations[i].location.toString();
+			//log("- " + locations[i].text + " / <strong>" + locations[i].location.toString() + "</strong>");
+			log("<a href='#' onclick='changeMapLocation(" + altLocation + ")'>" + locations[i].text + "</a>")
+			console.log("Alt Location # " + i + " is " + altLocation);
 		}
 		var marker = new google.maps.Marker({
 	        map: map,
@@ -58,9 +72,14 @@ function changeMapLocation(locations) {
 	}
 	//Send lat and lng values to rounder in an array  
 	var latAndLng = [locations[0].location.k, locations[0].location.B];
-	rounder(latAndLng);
-    
+	rounder(latAndLng);  
+
+	//Using alternative locations
+
+
 }
+
+
 
 //Everything has to be rounded to nearest .25 or .75 to match the data
 function rounder (x) {

@@ -35,15 +35,22 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .results {
 	clear: both;
 	width: 100%;
-	background: yellow;
+}
+ input#searchtext {
+	display: block;
+	margin: 0 auto 10px;
+	width: 300px;
+	height: 2em;
+	font-size: 14px;
+	text-align: center;
 }
 
-#zoneOutput, #zoneDescription {
-	display: inline-block;
+
+button#layer-toggle, button#search {
+	display: block;
+	margin: 0 auto 30px;
+	width: 200px;
 }
-
-/*Header*/
-
 
 
 .pure-menu .pure-menu-heading {
@@ -53,10 +60,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 
-input#searchtext {
-height: 2em;
-width: 16em;
-}
+
 
 
 
@@ -99,19 +103,19 @@ https://stackoverflow.com/questions/8511436/zoom-control-and-streetview-not-show
 .main {
 	position: relative;
 }
-	.sidebar {
-position: fixed;
-/* top: 1em; */
-/* left: 1em; */
-z-index: 2;
-height: 100%;
-overflow: hidden;
-background: rgba(0, 0, 0, .5);
-width: 300px;
-vertical-align: middle;
-padding: 2em;
+.sidebar {
+	position: fixed;
+	z-index: 2;
+	height: 100%;
+	overflow: hidden;
+	background: rgba(38, 38, 38, 0.75);
+	width: 300px;
+	vertical-align: middle;
+	padding: 2em;
 
-
+}
+.results {
+	color: yellow;
 }
 
 img[src^="http://sco-tt.github.io/"]{
