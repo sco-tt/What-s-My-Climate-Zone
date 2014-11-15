@@ -114,21 +114,10 @@ function changeMapLocation(locations, isAlt) {
     	var latAndLng = [locations.location.k, locations.location.B];
 		rounder(latAndLng);  
 	}
-
-
+	
 	else {
 		describeClimatezone (null);
 	}
-
-
-
-	//Send lat and lng values to rounder in an array  
-	var latAndLng = [locations[0].location.k, locations[0].location.B];
-	rounder(latAndLng);  
-
-	//Using alternative locations
-
-
 }
 
 
