@@ -34,21 +34,30 @@ window.onload = function () {
         var address = document.getElementById("searchtext").value;
         //log("Address: " + address, true);
         addressToLocation(address, changeMapLocation);
-        Apollo.addClass(document.body, 'active');
+        clearResultsLaunchSpinner();
     }
     document.getElementById('searchtext').onkeydown = function (e) {
         if (e.keyCode === 13) {
             var address = document.getElementById("searchtext").value;
             //log("Address: " + address, true);
             addressToLocation(address, changeMapLocation);
-            Apollo.addClass(document.body, 'active');
+            clearResultsLaunchSpinner();
         }
     };
+}
+
+function clearResultsLaunchSpinner () {
+	document.getElementById('locationName').innerHTML="";
+	document.getElementById('zoneDescription').innerHTML="";
+	document.getElementById('zoneOutput').innerHTML="";
+	document.getElementById("debug").innerHTML="";
+    Apollo.addClass(document.body, 'active');
 }
 
 /*Zooming to location and passing reults to climate zone query*/
 
 function changeMapLocation(locations, isAlt) {
+	clearResultsLaunchSpinner();
 	
 // isAlt determine if this is inputed through the search field or clicked on in the list of alternates
 	
@@ -90,6 +99,8 @@ function changeMapLocation(locations, isAlt) {
 		bestLocation = locations[0].text + " " + locations[0].location.toString();
 		map.panTo(locations[0].location);
         map.setZoom(8);
+		var latAndLng = [locations[0].location.k, locations[0].location.B];
+		rounder(latAndLng);  
 	} 
 	
 	else if (isAlt == true) {
@@ -100,7 +111,8 @@ function changeMapLocation(locations, isAlt) {
         });
 		map.panTo(locations);
         map.setZoom(8);
-
+    	var latAndLng = [locations.location.k, locations.location.B];
+		rounder(latAndLng);  
 	}
 
 
@@ -119,9 +131,6 @@ function changeMapLocation(locations, isAlt) {
 
 }
 
-	function altAlert (event) {
-		alert("hi");
-	}
 
 
 //Everything has to be rounded to nearest .25 or .75 to match the data
@@ -208,11 +217,6 @@ function describeClimatezone (climateZone) {
 			
 // converting the address's string to a google.maps.LatLng object
 function addressToLocation(address, callback) {
-	//remove old results
-	document.getElementById('locationName').innerHTML="";
-	document.getElementById('zoneDescription').innerHTML="";
-	document.getElementById('zoneOutput').innerHTML="";
-	document.getElementById("debug").innerHTML="";
 
 	var geocoder = new google.maps.Geocoder();
 	geocoder.geocode(
