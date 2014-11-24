@@ -34,16 +34,19 @@
 				
             <div class="main">
 	            <div class="sidebar">
-		            <input type="text" id="searchtext" placeholder="Type your favorite place & hit enter" />
-					<button type="button" class="pure-button pure-button-primary" id="search" value="search" />Search</button>
-					<button type="button" id="layer-toggle" class="pure-button layer-toggle" onclick="toggleLayer(0)">Toggle Climate Zones Overlay</button>
+		            <div id="input">
+			            <input type="text" id="searchtext" placeholder="Type your favorite place & hit enter" />
+						<button type="button" class="pure-button pure-button-primary" id="search" value="search" />Search</button>
+						<button type="button" id="layer-toggle" class="pure-button layer-toggle" onclick="toggleLayer(0)">Toggle Climate Zones Overlay</button>
+					</div>
+					<div class="spinner"></div>
 					<div id="results" class="results">
 						<div id="locationName"></div>
-						<h2 id="zoneOutput"></h2>
+						<div id="zoneOutput"></div>
 						<div id="zoneDescription"></div>
-						</div>
-								<div id="debug"><h2>Debug</h2></div>
-								<ul id="altIds"></ul>
+					</div>
+					<div id="debug"><h2>Debug</h2></div>
+					<ul id="altIds"></ul>
 
 				</div>
 
