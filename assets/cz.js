@@ -27,6 +27,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 				panControlOptions: {
 					position: google.maps.ControlPosition.TOP_RIGHT
 			    },
+				streetViewControl: false
 	        }
 	    );
 					
@@ -64,7 +65,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	/*Zooming to location and passing reults to climate zone query*/
 
 	function changeMapLocation(locations) {
-	console.log('changeMapLocation  says isAlt: ' + isAlt);
+
 		clearResultsLaunchSpinner();
 		// isAlt determine if this is inputed through the search field or clicked on in the list of alternates and called from buildAltLocationsList()
 		
@@ -101,9 +102,6 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	}
 
 	function buildAltLocationsList (locations) {
-		console.log('buildAltLocationsList Location says isAlt: ' + isAlt);
-		console.log(locations);
-		
 		//Determine whether or not to include the 'best result' in altLocationsList or not
 
 		var arrIndex;
@@ -121,7 +119,6 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 				
 			for(var i=arrIndex; i<locations.length; i++) {	
 				var altLocation = locations[arrIndex].location;
-				console.log(altLocation);
 				document.getElementById("altIds").innerHTML += "<li id = alt" + i + "><a>" + locations[i].text + "</a></li>";
 			}
 			//Separate for loop to build the click handler for each li
@@ -195,7 +192,8 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	        ["Dfa","Humid continental, no dry season, hot summer"],
 	        ["Dfb","Humid continental, no dry season, warm summer"],
 	        ["Dwa","Humid continental, severe dry winter, hot summer"],
-	        ["Dwb","Humid continental, severe dry winter, warm summer"],         
+	        ["Dwb","Humid continental, severe dry winter, warm summer"],
+	        ["Dsb","Humid continental, dry warm summer"],                 
 	        ["Dfc","Subartic, severe winter, no dry season, cool summer"], 
 	        ["Dfd","Subartic, severe very cold winter, no dry season, cool summer"],             
 	        ["Dwc","Subartic, dry winter, cool summer"],
