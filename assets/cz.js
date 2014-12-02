@@ -161,8 +161,31 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	   determineClimateZone(x[0], x[1]);
 	}
 
+	// Fusion Table Query
+      function determineClimateZone(lat, lng) {
+       var query =    "SELECT 'Cls' FROM " +
+                       "1GQfBT-PXojUbIZP7_tkILYKNjHaQjYqop9gkosho" +
+                       " WHERE 'Lat' = '" + lat + "' AND Lon = '" + lng + "'";
+        var encodedQuery = encodeURIComponent(query);
+
+        // Construct the URL
+        var url = ['https://www.googleapis.com/fusiontables/v1/query'];
+        url.push('?sql=' + encodedQuery);
+        url.push('&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ');
+        url.push('&callback=?');
+
+        // Send the JSONP request using jQuery
+        $.ajax({
+          url: url.join(''),
+          dataType: 'jsonp',
+          success: function (data) {
+            describeClimatezone(data.rows[0]);
+          }
+        });
+      }
+
 	//YQL query
-	function determineClimateZone(lat, lng) {
+	/**function determineClimateZone(lat, lng) {
 	    var query = 'select zone from csv where url="https://sco-tt.github.io/What-s-My-Climate-Zone/assets/Koeppen-Geiger-ASCII-trimmed.csv" and columns="lat,lng,zone" and lat="'+ lat + '" and lng="' + lng + '"';
 	    YUI().use("yql", function (Y) {
 	           Y.YQL(query, function(results) {
@@ -170,7 +193,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 				});
 			});
 		}
-
+**/
 	function describeClimatezone (climateZone) {
 	    var czArray = [
 	        ["Af","Tropical rainforest"],
