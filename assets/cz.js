@@ -39,6 +39,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	    document.getElementById("search").onclick = function () {
 	        var address = document.getElementById("searchtext").value;
 	        addressToLocation(address, changeMapLocation);
+	        isAlt = false;
 	        clearResultsLaunchSpinner();
 	    }
 	    
@@ -46,6 +47,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	        if (e.keyCode === 13) {
 	            var address = document.getElementById("searchtext").value;
 	            addressToLocation(address, changeMapLocation);
+	            isAlt = false;
 	            clearResultsLaunchSpinner();
 	        }
 	    };
@@ -184,16 +186,6 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
         });
       }
 
-	//YQL query
-	/**function determineClimateZone(lat, lng) {
-	    var query = 'select zone from csv where url="https://sco-tt.github.io/What-s-My-Climate-Zone/assets/Koeppen-Geiger-ASCII-trimmed.csv" and columns="lat,lng,zone" and lat="'+ lat + '" and lng="' + lng + '"';
-	    YUI().use("yql", function (Y) {
-	           Y.YQL(query, function(results) {
-	                describeClimatezone (results.query.results.row.zone);
-				});
-			});
-		}
-**/
 	function describeClimatezone (climateZone) {
 	    var czArray = [
 	        ["Af","Tropical rainforest"],
