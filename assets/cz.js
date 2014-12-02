@@ -7,6 +7,8 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	var returnedLocation;
 	var altLocationsList;
 	var isAlt = false;
+	var markersArray = [];
+
 
 	/*Initializing the map and input elements*/
 
@@ -54,7 +56,6 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	            clearResultsLaunchSpinner();
 	        }
 	    };
-
 	    
 		document.getElementById("layer-toggle").onclick = function () {
 			toggleLayer(0);
@@ -71,13 +72,21 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 		document.getElementById('zoneOutput').innerHTML="";
 		document.getElementById("numOfAlts").innerHTML="";
 		document.getElementById("altIds").innerHTML="";
+		clearOverlays();
 		Apollo.addClass(document.body, 'active');
+	}
+
+	function clearOverlays() {
+		for (var i = 0; i < markersArray.length; i++ ) {
+			markersArray[i].setMap(null);
+		}
+			markersArray = [];
 	}
 
 	/*Zooming to location and passing reults to climate zone query*/
 
 	function changeMapLocation(locations) {
-
+		console.log(markersArray);
 		clearResultsLaunchSpinner();
 		// isAlt determine if this is inputed through the search field or clicked on in the list of alternates and called from buildAltLocationsList()
 		
@@ -88,6 +97,8 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 		        map: map,
 		        position: locations[0].location
 	        });
+	        markersArray.push(marker);
+
 			returnedLocation = locations[0].text /**+ " " + locations[0].location.toString()**/;
 			map.panTo(locations[0].location);
 	        map.setZoom(8);
@@ -102,6 +113,8 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 		        map: map,
 		        position: locations.location
 	        });
+	        markersArray.push(marker);
+
 			returnedLocation = locations.text + " " + locations.location.toString();
 			map.panTo(locations);
 	        map.setZoom(8);
