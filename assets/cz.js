@@ -36,6 +36,8 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 
 	    // Add event listeners
 
+	    //Search field - button click
+
 	    document.getElementById("search").onclick = function () {
 	        var address = document.getElementById("searchtext").value;
 	        addressToLocation(address, changeMapLocation);
@@ -43,7 +45,8 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	        clearResultsLaunchSpinner();
 	    }
 	    
-	    document.getElementById('searchtext').onkeydown = function (e) {
+	    //Search field - hit enter
+	     document.getElementById('searchtext').onkeydown = function (e) {
 	        if (e.keyCode === 13) {
 	            var address = document.getElementById("searchtext").value;
 	            addressToLocation(address, changeMapLocation);
@@ -52,14 +55,21 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	        }
 	    };
 
+	    
+		document.getElementById("layer-toggle").onclick = function () {
+			toggleLayer(0);
+		}
+
+
 	}
+
 
 	function clearResultsLaunchSpinner () {
    	    Apollo.removeClass(document.body, 'showing-results');
 		document.getElementById('locationName').innerHTML="";
 		document.getElementById('zoneDescription').innerHTML="";
 		document.getElementById('zoneOutput').innerHTML="";
-		document.getElementById("debug").innerHTML="";
+		document.getElementById("numOfAlts").innerHTML="";
 		document.getElementById("altIds").innerHTML="";
 		Apollo.addClass(document.body, 'active');
 	}
@@ -117,7 +127,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 		document.getElementById("altIds").innerHTML = "";
 
 		if (locations.length > 1) {
-			log( (locations.length-arrIndex) + " alternate locations found. Click to search:");
+			document.getElementById("numOfAlts").innerHTML = locations.length-arrIndex + " alternate locations found. Click to search:";
 				
 			for(var i=arrIndex; i<locations.length; i++) {	
 				var altLocation = locations[arrIndex].location;
@@ -283,15 +293,15 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 		);
 	}
 
-				//start Layers
-
+	//start Layers
 
 	var layer = new google.maps.KmlLayer('https://sco-tt.github.io/What-s-My-Climate-Zone/Koeppen-Geiger-GE.kmz',
 	{preserveViewport: true});
 
-
 	//toggle layers
+
 	function toggleLayer() {
+
 		if(layer.getMap()==null) {
 			layer.setMap(map);
 			google.maps.event.trigger(map, 'resize');
