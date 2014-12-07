@@ -13,7 +13,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	/*Initializing the map and input elements*/
 
 	window.onload = function () {
-	    // initialize the map
+	    // initialize the map and set options
 	    var mapHolder = document.getElementById("map-holder");
 	    map = new google.maps.Map(
 	        mapHolder,
@@ -86,7 +86,6 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	/*Zooming to location and passing reults to climate zone query*/
 
 	function changeMapLocation(locations) {
-		console.log(markersArray);
 		clearResultsLaunchSpinner();
 		// isAlt determine if this is inputed through the search field or clicked on in the list of alternates and called from buildAltLocationsList()
 		
@@ -101,7 +100,8 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 
 			returnedLocation = locations[0].text /**+ " " + locations[0].location.toString()**/;
 			map.panTo(locations[0].location);
-	        map.setZoom(8);
+	        map.setZoom(6);
+			//send lat/lng pair to rounder
 			rounder([locations[0].location.k, locations[0].location.B]);  
 			//Redfine global var so it can be used at the end of Climate Zone query to to call buildAltLocationsList()
 			altLocationsList = locations;
@@ -117,10 +117,11 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 
 			returnedLocation = locations.text + " " + locations.location.toString();
 			map.panTo(locations);
-	        map.setZoom(8);
+	        map.setZoom(6);
+			//send lat/lng pair to rounder
 			rounder([locations.location.k, locations.location.B]); 
 		}
-		
+
 		else {
 			describeClimatezone (null);
 		}
@@ -146,6 +147,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 				var altLocation = locations[arrIndex].location;
 				document.getElementById("altIds").innerHTML += "<li id = alt" + i + "><a>" + locations[i].text + "</a></li>";
 			}
+			
 			//Separate for loop to build the click handler for each li
 			for(var i=arrIndex; i<locations.length; i++) {	
 				(function (i) {
@@ -164,8 +166,9 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	}
 
 
-
-	//Everything has to be rounded to nearest .25 or .75 to match the data
+	// Prepping data for fusion table Query. 
+	// Everything has to be rounded to nearest .25 or .75 to match the data
+	
 	function rounder (x) {
 	    for (var i = 0; i < x.length; i++) {
 	    var xDecimal = (x[i] % 1);
@@ -187,6 +190,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	}
 
 	// Fusion Table Query
+     
       function determineClimateZone(lat, lng) {
        var query =    "SELECT 'Cls' FROM " +
                        "1GQfBT-PXojUbIZP7_tkILYKNjHaQjYqop9gkosho" +
@@ -308,7 +312,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 
 	//start Layers
 
-	var layer = new google.maps.KmlLayer('https://sco-tt.github.io/What-s-My-Climate-Zone/Koppen-Geiger_SemiT2.kmz',
+	var layer = new google.maps.KmlLayer('https://sco-tt.github.io/What-s-My-Climate-Zone/Koeppen-Geiger-GE.kmz',
 	{preserveViewport: true});
 
 	//toggle layers
@@ -327,14 +331,6 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	}      
 				
 				
-	function log(str, clear) {
-		var debugHolder = document.getElementById("debug");
-		if(clear) {
-			debugHolder.innerHTML = "";
-			zoneDescription.innerHTML = "";
-			zoneOutput.innerHTML = "";
-		}
-		debugHolder.innerHTML = debugHolder.innerHTML + "<br />" + str;
-	}
+
 
 })();         // End scoping function
