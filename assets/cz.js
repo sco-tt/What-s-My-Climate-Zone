@@ -308,7 +308,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 
 	//start Layers
 
-	var layer = new google.maps.KmlLayer('https://sco-tt.github.io/What-s-My-Climate-Zone/Koppen-Geiger_SemiT.kmz',
+	var layer = new google.maps.KmlLayer('https://sco-tt.github.io/What-s-My-Climate-Zone/Koppen-Geiger_SemiT2.kmz',
 	{preserveViewport: true});
 
 	//toggle layers
