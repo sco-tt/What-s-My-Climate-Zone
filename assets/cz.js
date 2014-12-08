@@ -90,6 +90,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 		// isAlt determine if this is inputed through the search field or clicked on in the list of alternates and called from buildAltLocationsList()
 		
 		if(locations && locations.length && isAlt === false) {
+
 			
 			//Set up a marker and pan map to our best location
 			var marker = new google.maps.Marker({
@@ -98,7 +99,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	        });
 	        markersArray.push(marker);
 
-			returnedLocation = locations[0].text /**+ " " + locations[0].location.toString()**/;
+			returnedLocation = locations[0].text + "<br>(" + parseFloat(locations[0].location.k).toFixed(2) + ", " + parseFloat(locations[0].location.B).toFixed(2) + ")";
 			map.panTo(locations[0].location);
 	        map.setZoom(6);
 			//send lat/lng pair to rounder
@@ -116,16 +117,17 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	        });
 	        markersArray.push(marker);
 
-			returnedLocation = locations.text + " " + locations.location.toString();
+			returnedLocation = locations.text + "<br>(" + parseFloat(locations.location.k).toFixed(2) + ", " + parseFloat(locations.location.B).toFixed(2) + ")";
 			map.panTo(locations);
 	        map.setZoom(6);
 			//send lat/lng pair to rounder
 			rounder([locations.location.k, locations.location.B]); 
-		}
 
+		}
 		else {
 			describeClimatezone (null);
 		}
+
 	}
 
 	function buildAltLocationsList (locations) {
@@ -166,7 +168,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	}
 
 
-	// Prepping data for fusion table Query. 
+	// Prepping data for Fusion Table Query. 
 	// Everything has to be rounded to nearest .25 or .75 to match the data
 	
 	function rounder (x) {
@@ -185,7 +187,6 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	            x[i] += (-0.75 - xDecimal);
 	       }
 	    }
-
 	   determineClimateZone(x[0], x[1]);
 	}
 
@@ -199,15 +200,15 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
         var encodedQuery = encodeURIComponent(query);
 
         // Construct the URL
-        var url = ['https://www.googleapis.com/fusiontables/v1/query'];
-        url.push('?sql=' + encodedQuery);
-        url.push('&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ');
-        url.push('&callback=?');
+        var url = ["https://www.googleapis.com/fusiontables/v1/query"];
+        url.push("?sql=" + encodedQuery);
+        url.push("&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ");
+        url.push("&callback=?");
 
         // Send the JSONP request using jQuery
         $.ajax({
-          url: url.join(''),
-          dataType: 'jsonp',
+          url: url.join(""),
+          dataType: "jsonp",
           success: function (data) {
             describeClimatezone(data.rows[0]);
           }
@@ -240,30 +241,29 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	        ["Dfc","Subartic, severe winter, no dry season, cool summer"], 
 	        ["Dfd","Subartic, severe very cold winter, no dry season, cool summer"],             
 	        ["Dwc","Subartic, dry winter, cool summer"],
-	        ["Dsc","Subartic, subalpine?"],
+	        ["Dsc","Subartic, subalpine"],
 	        ["Dwd","Subartic, very cold and dry winter, cool summer"],
 	        ["ET","Tundra"],
 	        ["EF","Ice Cap"]
 	];
-
 		var zoneDescriptionText;
 		
 		for (var i = 0; i < czArray.length; i++) {
 		    if (climateZone == czArray[i][0]) {
 		        zoneDescriptionText = czArray[i][1];
 		    }
-		    else if (climateZone == null) {
+		    else if (climateZone === null) {
 		    	zoneDescriptionText = "Location Not Found! Look at an atlas!";
 		    }
 		}
 
-		document.getElementById('locationName').innerHTML = "Showing Results for: " + returnedLocation;
-		document.getElementById('zoneOutput').innerHTML = document.getElementById('zoneOutput').innerHTML + climateZone;
-	    document.getElementById('zoneDescription').innerHTML = document.getElementById('zoneDescription').innerHTML + zoneDescriptionText;	
+		document.getElementById("locationName").innerHTML = "Showing Results for: <br>" + returnedLocation;
+		document.getElementById("zoneOutput").innerHTML = document.getElementById("zoneOutput").innerHTML + climateZone;
+	    document.getElementById("zoneDescription").innerHTML = document.getElementById("zoneDescription").innerHTML + zoneDescriptionText;	
 	    
 	    //Change classes in DOM to hide spinner
-	    $(document.body).removeClass('active');
-	    $(document.body).addClass('showing-results');
+	    $(document.body).removeClass("active");
+	    $(document.body).addClass("showing-results");
 
 	    //Now that the climate zone has been returned, call function to build a list of alternate locations returned by Google's Geocode
 		buildAltLocationsList(altLocationsList);
@@ -295,7 +295,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 									lng:result.geometry.location.lng(),
 								}
 							);
-						};
+						}
 					}
 				} else if(status == google.maps.GeocoderStatus.ZERO_RESULTS) {
 					// address not found
@@ -312,13 +312,13 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 
 	//define layer
 
-	var layer = new google.maps.KmlLayer('https://sco-tt.github.io/What-s-My-Climate-Zone/Koeppen-Geiger-GE.kmz',
+	var layer = new google.maps.KmlLayer("https://sco-tt.github.io/What-s-My-Climate-Zone/Koeppen-Geiger-GE.kmz",
 	{preserveViewport: true});
 
 	//toggle kmz layer function
 
 	function toggleLayer() {
-		if(layer.getMap()==null) {
+		if(layer.getMap()===null) {
 			layer.setMap(map);
 			google.maps.event.trigger(map, "resize");
 			$("#layer-toggle").addClass("pure-button-active");
