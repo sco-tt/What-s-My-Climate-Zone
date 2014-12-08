@@ -1,8 +1,8 @@
 /* Google Address to coordinates code from:
 http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-transformation-text-to-LatLng
 */
-(function() { // Begin scoping function
-	
+(function () { // Begin scoping function
+	"use strict";
 	var map = null;
 	var returnedLocation;
 	var altLocationsList;
@@ -45,10 +45,11 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	        addressToLocation(address, changeMapLocation);
 	        isAlt = false;
 	        clearResultsLaunchSpinner();
-	    }
+	    };
 	    
 	    //Search field - hit enter
-	     document.getElementById('searchtext').onkeydown = function (e) {
+
+	     document.getElementById("searchtext").onkeydown = function (e) {
 	        if (e.keyCode === 13) {
 	            var address = document.getElementById("searchtext").value;
 	            addressToLocation(address, changeMapLocation);
@@ -59,21 +60,19 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	    
 		document.getElementById("layer-toggle").onclick = function () {
 			toggleLayer(0);
-		}
-
-
-	}
+		};
+	};
 
 
 	function clearResultsLaunchSpinner () {
-   	    Apollo.removeClass(document.body, 'showing-results');
-		document.getElementById('locationName').innerHTML="";
-		document.getElementById('zoneDescription').innerHTML="";
-		document.getElementById('zoneOutput').innerHTML="";
+		$(document.body).removeClass("showing-results");
+		document.getElementById("locationName").innerHTML="";
+		document.getElementById("zoneDescription").innerHTML="";
+		document.getElementById("zoneOutput").innerHTML="";
 		document.getElementById("numOfAlts").innerHTML="";
 		document.getElementById("altIds").innerHTML="";
 		clearOverlays();
-		Apollo.addClass(document.body, 'active');
+		$(document.body).addClass("active");
 	}
 
 	function clearOverlays() {
@@ -87,9 +86,10 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 
 	function changeMapLocation(locations) {
 		clearResultsLaunchSpinner();
+		
 		// isAlt determine if this is inputed through the search field or clicked on in the list of alternates and called from buildAltLocationsList()
 		
-		if(locations && locations.length && isAlt == false) {
+		if(locations && locations.length && isAlt === false) {
 			
 			//Set up a marker and pan map to our best location
 			var marker = new google.maps.Marker({
@@ -103,13 +103,14 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	        map.setZoom(6);
 			//send lat/lng pair to rounder
 			rounder([locations[0].location.k, locations[0].location.B]);  
+			
 			//Redfine global var so it can be used at the end of Climate Zone query to to call buildAltLocationsList()
 			altLocationsList = locations;
 			
 		} 
 		
-		else if (isAlt == true) {
-			var marker = new google.maps.Marker({
+		else if (isAlt === true) {
+			marker = new google.maps.Marker({
 		        map: map,
 		        position: locations.location
 	        });
@@ -128,10 +129,10 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	}
 
 	function buildAltLocationsList (locations) {
-		//Determine whether or not to include the 'best result' in altLocationsList or not
+		//Determine whether or not to include the "best result" in altLocationsList or not
 
 		var arrIndex;
-		if (isAlt == false ) {
+		if (isAlt === false ) {
 			arrIndex = 1;
 		}
 		else {
@@ -144,23 +145,22 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 			document.getElementById("numOfAlts").innerHTML = locations.length-arrIndex + " alternate locations found. Click to search:";
 				
 			for(var i=arrIndex; i<locations.length; i++) {	
-				var altLocation = locations[arrIndex].location;
 				document.getElementById("altIds").innerHTML += "<li id = alt" + i + "><a>" + locations[i].text + "</a></li>";
 			}
 			
 			//Separate for loop to build the click handler for each li
-			for(var i=arrIndex; i<locations.length; i++) {	
-				(function (i) {
-				    document.getElementById('alt' + i).onclick = function () {
+			for(var z=arrIndex; z<locations.length; z++) {	
+				(function (z) {
+				    document.getElementById("alt" + z).onclick = function () {
 				        if (window.console.firebug !== undefined) {
-				            console.log(locations[i]);
+				            console.log(locations[z]);
 				        }
 				        else {
 		        			isAlt = true;
-				            changeMapLocation(locations[i]);
+				            changeMapLocation(locations[z]);
 				        }
 				    };
-				})(i);
+				})(z);
 			} //End 2nd for loop
 		}			
 	}
@@ -189,7 +189,8 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	   determineClimateZone(x[0], x[1]);
 	}
 
-	// Fusion Table Query
+	// Fusion Table Query of list of table of worldwide lat/lng pairs and their climate zone
+	// https://www.google.com/fusiontables/DataSource?docid=1GQfBT-PXojUbIZP7_tkILYKNjHaQjYqop9gkosho
      
       function determineClimateZone(lat, lng) {
        var query =    "SELECT 'Cls' FROM " +
@@ -261,9 +262,8 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	    document.getElementById('zoneDescription').innerHTML = document.getElementById('zoneDescription').innerHTML + zoneDescriptionText;	
 	    
 	    //Change classes in DOM to hide spinner
-	    Apollo.removeClass(document.body, 'active');	
-	    Apollo.addClass(document.body, 'showing-results');	
-	    
+	    $(document.body).removeClass('active');
+	    $(document.body).addClass('showing-results');
 
 	    //Now that the climate zone has been returned, call function to build a list of alternate locations returned by Google's Geocode
 		buildAltLocationsList(altLocationsList);
@@ -310,27 +310,23 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 		);
 	}
 
-	//start Layers
+	//define layer
 
 	var layer = new google.maps.KmlLayer('https://sco-tt.github.io/What-s-My-Climate-Zone/Koeppen-Geiger-GE.kmz',
 	{preserveViewport: true});
 
-	//toggle layers
+	//toggle kmz layer function
 
 	function toggleLayer() {
-
 		if(layer.getMap()==null) {
 			layer.setMap(map);
-			google.maps.event.trigger(map, 'resize');
-			Apollo.addClass(document.getElementById("layer-toggle"), 'pure-button-active');	
+			google.maps.event.trigger(map, "resize");
+			$("#layer-toggle").addClass("pure-button-active");
 		}
 		else {
-		     layer.setMap(null);
-		     Apollo.removeClass(document.getElementById("layer-toggle"), 'pure-button-active');				
+			layer.setMap(null);
+			$("#layer-toggle").removeClass("pure-button-active");
+			
 		}
-	}      
-				
-				
-
-
+	}    
 })();         // End scoping function
