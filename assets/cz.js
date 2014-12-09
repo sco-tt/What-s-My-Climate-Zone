@@ -133,13 +133,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	function buildAltLocationsList (locations) {
 		//Determine whether or not to include the "best result" in altLocationsList or not
 
-		var arrIndex;
-		if (isAlt === false ) {
-			arrIndex = 1;
-		}
-		else {
-			arrIndex = 0;
-		}
+		var arrIndex = isAlt?0:1;
 
 		document.getElementById("altIds").innerHTML = "";
 
