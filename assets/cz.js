@@ -9,9 +9,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	var isAlt = false;
 	var markersArray = [];
 
-
-	/*Initializing the map and input elements*/
-
+	// Initializing the map and input elements
 	window.onload = function () {
 	    // initialize the map and set options
 	    var mapHolder = document.getElementById("map-holder");
@@ -37,9 +35,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	    map.setCenter(new google.maps.LatLng(20.2, 0.1));
 
 	    // Add event listeners
-
 	    //Search field - button click
-
 	    document.getElementById("search").onclick = function () {
 	        var address = document.getElementById("searchtext").value;
 	        addressToLocation(address, changeMapLocation);
@@ -61,8 +57,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 		document.getElementById("layer-toggle").onclick = function () {
 			toggleLayer(0);
 		};
-	};
-
+	}; //End window.onload function
 
 	function clearResultsLaunchSpinner () {
 		$(document.body).removeClass("showing-results");
@@ -83,14 +78,11 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	}
 
 	/*Zooming to location and passing reults to climate zone query*/
-
 	function changeMapLocation(locations) {
 		clearResultsLaunchSpinner();
 		
-		// isAlt determine if this is inputed through the search field or clicked on in the list of alternates and called from buildAltLocationsList()
-		
+		// isAlt determine if this is inputed through the search field or clicked on in the list of alternates and called from buildAltLocationsList()		
 		if(locations && locations.length && isAlt === false) {
-
 			
 			//Set up a marker and pan map to our best location
 			var marker = new google.maps.Marker({
@@ -98,12 +90,12 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 		        position: locations[0].location
 	        });
 	        markersArray.push(marker);
-
-			returnedLocation = locations[0].text + "<br>(" + parseFloat(locations[0].location.k).toFixed(2) + ", " + parseFloat(locations[0].location.B).toFixed(2) + ")";
+			returnedLocation = locations[0].text + "<br>(" + parseFloat(locations[0].lat).toFixed(2) + ", " + parseFloat(locations[0].lng).toFixed(2) + ")";
 			map.panTo(locations[0].location);
 	        map.setZoom(6);
-			//send lat/lng pair to rounder
-			rounder([locations[0].location.k, locations[0].location.B]);  
+
+			//send lat/lng pair to roundCoordinates
+			roundCoordinates([locations[0].lat, locations[0].lng]);  
 			
 			//Redfine global var so it can be used at the end of Climate Zone query to to call buildAltLocationsList()
 			altLocationsList = locations;
@@ -116,23 +108,21 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 		        position: locations.location
 	        });
 	        markersArray.push(marker);
-
-			returnedLocation = locations.text + "<br>(" + parseFloat(locations.location.k).toFixed(2) + ", " + parseFloat(locations.location.B).toFixed(2) + ")";
+			returnedLocation = locations.text + "<br>(" + parseFloat(locations.lat).toFixed(2) + ", " + parseFloat(locations.lng).toFixed(2) + ")";
 			map.panTo(locations);
 	        map.setZoom(6);
-			//send lat/lng pair to rounder
-			rounder([locations.location.k, locations.location.B]); 
+			
+			//send lat/lng pair to roundCoordinates
+			roundCoordinates([locations.lat, locations.lng]); 
 
 		}
 		else {
 			describeClimatezone (null);
 		}
-
 	}
 
 	function buildAltLocationsList (locations) {
 		//Determine whether or not to include the "best result" in altLocationsList or not
-
 		var arrIndex = isAlt?0:1;
 
 		document.getElementById("altIds").innerHTML = "";
@@ -160,12 +150,9 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 			} //End 2nd for loop
 		}			
 	}
-
-
 	// Prepping data for Fusion Table Query. 
-	// Everything has to be rounded to nearest .25 or .75 to match the data
-	
-	function rounder (x) {
+	// Everything has to be rounded to nearest .25 or .75 to match the data	
+	function roundCoordinates (x) {
 	    for (var i = 0; i < x.length; i++) {
 	    var xDecimal = (x[i] % 1);
 	        if (xDecimal >= 0 && xDecimal <= 0.5) {
@@ -211,35 +198,35 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 
 	function describeClimatezone (climateZone) {
 	    var czArray = [
-	        ["Af","Tropical rainforest"],
-	        ["Am","Tropical monsoon"],
-	        ["Aw","Tropical wet and dry or savanna"],
-	        ["As","Tropical wet and dry or savanna ('summer' dry season)"],
-	        ["BWh","Subtropical desert"],
-	        ["BSh","Subtropical steppe"],
-	        ["BWk","Mid-latitude desert"],
-	        ["BSk","Mid-latitude steppe"],         
-	        ["Csa","Mediterranean, hot summer"], 
-	        ["Csb","Mediterranean, warm summer"],             
-	        ["Cfa","Humid subtropical, no dry season"],
-	        ["Cwa","Humid subtropical, dry winter"],
-	        ["Cwb","Temperate highland tropical climate with dry winters"],
-	        ["Cwc","Temperate highland tropical climate with dry winters"],
-	        ["Cfb","Marine west coast, warm summer"],
-	        ["Cfc","Marine west coast, cool summer"],
-	        ["Dfa","Humid continental, no dry season, hot summer"],
-	        ["Dfb","Humid continental, no dry season, warm summer"],
-	        ["Dwa","Humid continental, severe dry winter, hot summer"],
-	        ["Dwb","Humid continental, severe dry winter, warm summer"],
-	        ["Dsb","Humid continental, dry warm summer"],                 
-	        ["Dfc","Subartic, severe winter, no dry season, cool summer"], 
-	        ["Dfd","Subartic, severe very cold winter, no dry season, cool summer"],             
-	        ["Dwc","Subartic, dry winter, cool summer"],
-	        ["Dsc","Subartic, subalpine"],
-	        ["Dwd","Subartic, very cold and dry winter, cool summer"],
-	        ["ET","Tundra"],
-	        ["EF","Ice Cap"]
-	];
+				        ["Af","Tropical rainforest"],
+				        ["Am","Tropical monsoon"],
+				        ["Aw","Tropical wet and dry or savanna"],
+				        ["As","Tropical wet and dry or savanna ('summer' dry season)"],
+				        ["BWh","Subtropical desert"],
+				        ["BSh","Subtropical steppe"],
+				        ["BWk","Mid-latitude desert"],
+				        ["BSk","Mid-latitude steppe"],         
+				        ["Csa","Mediterranean, hot summer"], 
+				        ["Csb","Mediterranean, warm summer"],             
+				        ["Cfa","Humid subtropical, no dry season"],
+				        ["Cwa","Humid subtropical, dry winter"],
+				        ["Cwb","Temperate highland tropical climate with dry winters"],
+				        ["Cwc","Temperate highland tropical climate with dry winters"],
+				        ["Cfb","Marine west coast, warm summer"],
+				        ["Cfc","Marine west coast, cool summer"],
+				        ["Dfa","Humid continental, no dry season, hot summer"],
+				        ["Dfb","Humid continental, no dry season, warm summer"],
+				        ["Dwa","Humid continental, severe dry winter, hot summer"],
+				        ["Dwb","Humid continental, severe dry winter, warm summer"],
+				        ["Dsb","Humid continental, dry warm summer"],                 
+				        ["Dfc","Subartic, severe winter, no dry season, cool summer"], 
+				        ["Dfd","Subartic, severe very cold winter, no dry season, cool summer"],             
+				        ["Dwc","Subartic, dry winter, cool summer"],
+				        ["Dsc","Subartic, subalpine"],
+				        ["Dwd","Subartic, very cold and dry winter, cool summer"],
+				        ["ET","Tundra"],
+				        ["EF","Ice Cap"]
+					];
 		var zoneDescriptionText;
 		
 		for (var i = 0; i < czArray.length; i++) {
@@ -305,12 +292,10 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 	}
 
 	//define layer
-
 	var layer = new google.maps.KmlLayer("https://sco-tt.github.io/What-s-My-Climate-Zone/Koeppen-Geiger-GE.kmz",
 	{preserveViewport: true});
 
 	//toggle kmz layer function
-
 	function toggleLayer() {
 		if(layer.getMap()===null) {
 			layer.setMap(map);
