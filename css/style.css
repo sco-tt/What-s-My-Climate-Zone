@@ -25,13 +25,15 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 #map-holder{
     position: relative;
 	width: 100%;
-	height: 100%;
+	height: 800px;
 }
 
 #debug {
 	position: relative;
 	font-size: 11px;
 }
+
+
 
 
 /** Results**/
@@ -113,16 +115,6 @@ https://stackoverflow.com/questions/8511436/zoom-control-and-streetview-not-show
 .main {
 	position: relative;
 }
-.sidebar {
-	position: fixed;
-	z-index: 2;
-	height: 100%;
-	overflow: hidden;
-	background: rgba(38, 38, 38, 0.55);
-	width: 300px;
-	vertical-align: middle;
-
-}
 .results {
 	color: yellow;
 	background: black;
@@ -138,7 +130,12 @@ https://stackoverflow.com/questions/8511436/zoom-control-and-streetview-not-show
 	opacity: 100;
 }
 
-img[src^="http://sco-tt.github.io/"]{
-	opacity:.5
-}
-
+@media screen and (max-width: 640px) { 
+   button#layer-toggle, button#search {
+   	display: inline-block;
+   	width: auto;
+   	margin: 0;
+   }
+   .buttons {
+		text-align: center;
+   }

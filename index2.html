@@ -19,38 +19,47 @@
 <!--[if lte IE 9]>
 <p class="ie">Sorry, this site doesn't work return results on Internet Explorer 9 or below. You can still play with the map. Please use a different browser to see your climate zone. Technical details <a href="https://stackoverflow.com/questions/6514457/getjson-or-ajax-requests-not-working-with-ie9">here</a>. <p>
 <![endif]-->
-	    <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal">
-	        <a class="pure-menu-heading" href="">What's My Climate Zone</a>
+		    <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal">
+		        <a class="pure-menu-heading" href="">What's My Climate Zone</a>
 
-	        <ul>
-	            <li class="pure-menu-selected"></li>
-	            <li></li>
-				<li></li>
-	        </ul>
-	    </div>
+		        <ul>
+		            <li class="pure-menu-selected">			
+					</li>
+		            <li>
+		            </li>
+					<li>
+
+					</li>
+		        </ul>
+
+	
+		    </div>
 				
-        <div class="pure-g">
-            <div class="pure-u-1 .pure-u-md-3-4 pure-u-lg-1-4">
-	            <div id="input">
-		            <input type="text" id="searchtext" placeholder="Type your favorite place & hit enter" /></input>
-					<div class="buttons">
-						<button type="button" class="pure-button pure-button-primary" id="search" value="search" />Search</button>
+            <div class="pure-g">
+	            <div class="pure-u-1 pure-u-lg-2-5">
+		            <p>this is grid 1</p>
+		            <div id="input">
+			            <input type="text" id="searchtext" placeholder="Type your favorite place & hit enter" /></input>
+						<div class="buttons">
+							<button type="button" class="pure-button pure-button-primary" id="search" value="search" />Search</button>
+							<button type="button" id="layer-toggle" class="pure-button layer-toggle">Toggle Climate Zones Overlay</button>
+						</div>
 					</div>
+					<div class="spinner"></div>
+					<div id="results" class="results">
+						<div id="locationName"></div>
+						<div id="zoneOutput"></div>
+						<div id="zoneDescription"></div>
+						<div id="numOfAlts"></div>
+						<ul id="altIds"></ul>
+					</div>
+
 				</div>
-				<div class="spinner"></div>
-				<div id="results" class="results">
-					<div id="locationName"></div>
-					<div id="zoneOutput"></div>
-					<div id="zoneDescription"></div>
-					<div id="numOfAlts"></div>
-					<ul id="altIds"></ul>
+	            <div class="pure-u-1 pure-u-lg-3-5">
+					<p>this is grid 2</p>
+					<div id="map-holder"></div>	
 				</div>
 			</div>
-            <div class="pure-u-1 .pure-u-md-3-4 pure-u-lg-3-4">
-			<button type="button" id="layer-toggle" class="pure-button layer-toggle">Toggle Climate Zones Overlay</button>
-			<div id="map-holder"></div>	
-			</div>
-		</div>			
 		<script src="assets/cz.js"></script>
 	</body>
 </html>
