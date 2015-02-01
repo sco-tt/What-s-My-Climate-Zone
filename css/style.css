@@ -67,23 +67,18 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 button#layer-toggle, button#search {
 	display: block;
-	width: 200px;
+	width: 250px;
    	font-size: 16px;
-
-}
-button#search {
 	margin: 10px auto 30px;
 }
 
+
 button#layer-toggle {
-	position: fixed;
 	bottom: 3em;
 	z-index: 6;
 	color: white;
-	border-radius: 4px;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 	background: rgb(28, 184, 65); /* this is a green */
-	width: auto;
 }
 
 
@@ -166,7 +161,6 @@ https://stackoverflow.com/questions/8511436/zoom-control-and-streetview-not-show
    }
 
    button#layer-toggle {
-   	display: inline-block;
    	width: 100%;
    	margin: 0;
 	}
