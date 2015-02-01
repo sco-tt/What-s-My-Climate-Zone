@@ -76,7 +76,7 @@ button#search {
 }
 
 button#layer-toggle {
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	z-index: 6;
 	color: white;
