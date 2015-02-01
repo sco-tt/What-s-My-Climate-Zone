@@ -61,6 +61,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 
 	function clearResultsLaunchSpinner () {
 		$(document.body).removeClass("showing-results");
+		$("#searchtext").blur();
 		document.getElementById("locationName").innerHTML="";
 		document.getElementById("zoneDescription").innerHTML="";
 		document.getElementById("zoneOutput").innerHTML="";
