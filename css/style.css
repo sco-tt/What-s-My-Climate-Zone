@@ -57,8 +57,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
  input#searchtext {
 	display: block;
-	margin: 0 auto 10px;
-	width: 100%;
+	margin: 0 auto;
+	width: 95%;
 	height: 2em;
 	font-size: 14px;
 	text-align: center;
@@ -67,8 +67,23 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 button#layer-toggle, button#search {
 	display: block;
-	margin: 0 auto 30px;
 	width: 200px;
+   	font-size: 16px;
+
+}
+button#search {
+	margin: 10px auto 30px;
+}
+
+button#layer-toggle {
+	position: absolute;
+	bottom: 0;
+	z-index: 6;
+	color: white;
+	border-radius: 4px;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	background: rgb(28, 184, 65); /* this is a green */
+	width: auto;
 }
 
 
@@ -117,25 +132,54 @@ https://stackoverflow.com/questions/8511436/zoom-control-and-streetview-not-show
 }
 .results {
 	color: yellow;
-	background: black;
+	background: rgba(38, 38, 38, 1);
 	padding: 1em;
 }
 
 .results {
 	opacity: 0;
 	transition: opacity 0.3s ease-in-out;
+	position: absolute;
 }
 
 .showing-results .results {
-	opacity: 100;
+	opacity: 1;
+	position: inherit;
 }
 
 @media screen and (max-width: 640px) { 
-   button#layer-toggle, button#search {
+   input#searchtext {
    	display: inline-block;
-   	width: auto;
+   	width: 75%;
+   	height: 35px;
+   }
+   
+   button#search {
+	text-align: center;
+	width: auto;
+	margin: 0;
+	width: 20%;
+	height: 35px;
+	margin-top: 2px;
+	font-size: 14px;
+	display: inline-block;
+   }
+
+   button#layer-toggle {
+   	display: inline-block;
+   	width: 100%;
    	margin: 0;
-   }
-   .buttons {
-		text-align: center;
-   }
+	}
+
+   .showing-results .results{
+	position: absolute;
+	z-index: 5;
+	background: rgba(38, 38, 38, .7)
+}
+	.spinner {
+		position: absolute;
+		left: 50%;
+		z-index: 5;
+	}
+
+}
