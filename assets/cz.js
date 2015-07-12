@@ -94,6 +94,7 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 			returnedLocation = locations[0].text + "<br>(" + parseFloat(locations[0].lat).toFixed(2) + ", " + parseFloat(locations[0].lng).toFixed(2) + ")";
 			map.panTo(locations[0].location);
 	        map.setZoom(6);
+	        map.panBy(0,150);
 
 			//send lat/lng pair to roundCoordinates
 			roundCoordinates([locations[0].lat, locations[0].lng]);  
@@ -112,6 +113,8 @@ http://krasimirtsonev.com/blog/article/GoogleMaps-JS-API-address-to-coordinates-
 			returnedLocation = locations.text + "<br>(" + parseFloat(locations.lat).toFixed(2) + ", " + parseFloat(locations.lng).toFixed(2) + ")";
 			map.panTo(locations);
 	        map.setZoom(6);
+	        map.panBy(0,150);
+
 			
 			//send lat/lng pair to roundCoordinates
 			roundCoordinates([locations.lat, locations.lng]); 
